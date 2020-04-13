@@ -1,0 +1,26 @@
+<?php
+
+namespace DanialPanah\PerfectMoneyGateway\Tests;
+
+use DanialPanah\PerfectMoneyGateway\PMGatewayServiceProvider;
+
+class TestCase extends \Orchestra\Testbench\TestCase
+{
+    public function setUp(): void
+    {
+        parent::setUp();
+        // additional setup
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            PMGatewayServiceProvider::class,
+        ];
+    }
+
+    protected function getEnvironmentSetUp($app)
+    {
+        // perform environment setup
+    }
+}

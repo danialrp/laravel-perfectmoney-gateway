@@ -1,0 +1,49 @@
+{
+  "name": "danialpanah/perfectmoney-gateway",
+  "type": "library",
+  "description": "Laravel Package for Accept and Processing PerfectMoney Payments Through PerfectMoney Gateway",
+  "keywords": [
+    "gateway",
+    "rest",
+    "web service",
+    "perfectmoney",
+    "perfect money",
+    "laravel perfectmoney",
+    "laravel perfect money",
+    "laravel gateway"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Danial Panah",
+      "email": "me@danialrp.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "DanialPanah\\PerfectMoneyGateway\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "DanialPanah\\PerfectMoneyGateway\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^6.5"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^5.0",
+    "phpunit/phpunit": "^9.1"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "DanialPanah\\PerfectMoneyGateway\\PMGatewayServiceProvider"
+      ],
+      "aliases": {
+        "PMGateway": "DanialPanah\\PerfectMoneyGateway\\Facades\\PerfectMoneyGateway"
+      }
+    }
+  }
+}
