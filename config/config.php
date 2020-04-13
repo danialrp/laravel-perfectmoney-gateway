@@ -6,5 +6,11 @@
  */
 
 return [
-    //
+    'pm_account' => env('PM_ACCOUNT', ''),
+    'pm_password' => env('PM_PASSWORD', ''),
+    'pm_alternate_passphrase' => env('PM_ALTERNATE_PASSPHRASE', ''),
+    'pm_wallet' => env('PM_WALLET', ''),
+    'pm_callback_url' => env('PM_CALLBACK_URL', ''),
+    'pm_email' => env('PM_EMAIL', ''),
+    'pm_payee_name' => env('PM_PAYEE_NAME', ''),
 ];
