@@ -8,7 +8,7 @@ class PMGatewayServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        app()->bind('pmgateway', PMGateway::class);
+        app()->bind('pmgateway', PerfectMoneyGateway::class);
 
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'pmgateway');
     }

@@ -3,13 +3,23 @@
 namespace DanialPanah\PerfectMoneyGateway\Tests;
 
 use DanialPanah\PerfectMoneyGateway\PMGatewayServiceProvider;
+use Faker\Factory;
+use Faker\Generator;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
+    /**
+     * A Faker fake data generator.
+     * @var Generator
+     */
+    protected $faker;
+
     public function setUp(): void
     {
+        //Create a new faker instance
+        $this->faker = Factory::create();
+
         parent::setUp();
-        // additional setup
     }
 
     protected function getPackageProviders($app)
@@ -21,6 +31,6 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        // perform environment setup
+        // some env setup
     }
 }

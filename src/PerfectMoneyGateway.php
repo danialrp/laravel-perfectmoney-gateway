@@ -2,7 +2,8 @@
 
 namespace DanialPanah\PerfectMoneyGateway;
 
-class PMGateway
-{
 
+class PerfectMoneyGateway
+{
+    //
 }
