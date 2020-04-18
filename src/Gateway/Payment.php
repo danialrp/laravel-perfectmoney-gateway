@@ -2,23 +2,46 @@
 
 namespace DanialPanah\PerfectMoneyGateway\Gateway;
 
+use DanialPanah\PerfectMoneyGateway\Exceptions\PerfectMoneyException;
 
 class Payment
 {
     /**
      * @var string
      */
-    private static $apiUrl = 'https://perfectmoney.com/api/step1.asp';
+    public $apiUrl = 'https://perfectmoney.com/api/step1.asp';
 
     /**
      * @var string
      */
-    private static $formEncryption = 'multipart/form-data';
+    public $formEncryption = 'multipart/form-data';
 
     /**
      * @var string
      */
-    private $formMethod = 'POST';
+    public $formMethod = 'POST';
 
+    /**
+     * @var array
+     */
+    private $paymentFields;
 
+    /**
+     * @param array $paymentFields
+     * @return Payment
+     * @throws PerfectMoneyException
+     */
+    public function setPaymentFields(array $paymentFields): Payment
+    {
+        $this->paymentFields = Initiate::payload($paymentFields)
+            ->validateParams()
+            ->createPaymentQuery();
+
+        return $this;
+    }
+
+    public static function createPaymentForm(): Payment
+    {
+        return new static();
+    }
 }
