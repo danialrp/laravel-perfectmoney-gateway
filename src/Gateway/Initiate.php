@@ -52,7 +52,7 @@ final class Initiate
     private $paymentId;
 
     /**
-     * @var int
+     * @var mixed
      */
     private $amount;
 
@@ -80,6 +80,7 @@ final class Initiate
     /**
      * Initiate constructor.
      * @param array $paymentParams
+     * @throws PerfectMoneyException
      */
     public function __construct(array $paymentParams)
     {
@@ -106,9 +107,10 @@ final class Initiate
     private function setPaymentParams(array $params): Initiate
     {
         $this->paymentId = array_key_exists('payment_id', $params) ? $params['payment_id'] : null;
-        $this->amount = array_key_exists('amount', $params) ? $params['amount'] : null;
         $this->memo = array_key_exists('public_note', $params) ? $params['public_note'] : '';
         $this->additionalInfo = array_key_exists('private_note', $params) ? $params['private_note'] : '';
+
+        array_key_exists('amount', $params) ? $this->setAmount($params['amount']) : null;
 
         array_key_exists('currency', $params) ? $this->setUnit($params['currency']) : null;
 
@@ -154,6 +156,19 @@ final class Initiate
         }
 
         $this->unit = (string)$unit;
+    }
+
+    /**
+     * @param mixed $amount
+     * @throws PerfectMoneyException
+     */
+    public function setAmount($amount): void
+    {
+        if (!is_numeric($amount) || $amount <= 0) {
+            throw new PerfectMoneyException('PerfectMoney invalid amount provided: ' . $amount);
+        }
+
+        $this->amount = bcdiv($amount, 1, 2);
     }
 
     /**
