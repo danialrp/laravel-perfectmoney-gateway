@@ -146,7 +146,7 @@ final class Initiate
      */
     private function setBaggageFields(string $baggageFields): void
     {
-        $this->baggageFields = $baggageFields;
+        $this->baggageFields = strtoupper($baggageFields);
     }
 
     /**
