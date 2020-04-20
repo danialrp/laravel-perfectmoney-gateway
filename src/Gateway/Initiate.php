@@ -101,16 +101,18 @@ final class Initiate
     /**
      * @param array $params
      * @return Initiate
+     * @throws PerfectMoneyException
      */
     private function setPaymentParams(array $params): Initiate
     {
         $this->paymentId = array_key_exists('payment_id', $params) ? $params['payment_id'] : null;
         $this->amount = array_key_exists('amount', $params) ? $params['amount'] : null;
-        $this->unit = array_key_exists('currency', $params) ? $params['currency'] : null;
         $this->memo = array_key_exists('public_note', $params) ? $params['public_note'] : '';
         $this->additionalInfo = array_key_exists('private_note', $params) ? $params['private_note'] : '';
 
-        if(!empty($this->additionalInfo)) {
+        array_key_exists('currency', $params) ? $this->setUnit($params['currency']) : null;
+
+        if (!empty($this->additionalInfo)) {
             $this->setBaggageFields('additional_info_1');
         }
 
@@ -134,11 +136,24 @@ final class Initiate
         ];
 
         foreach ($requiredParams as $key => $value) {
-            if(!$value)
+            if (!$value)
                 throw new PerfectMoneyException('PerfectMoney ' . $key . ' is not set.');
         }
 
         return $this;
+    }
+
+    /**
+     * @param string $unit
+     * @throws PerfectMoneyException
+     */
+    private function setUnit(string $unit): void
+    {
+        if (!in_array($unit, ['USD', 'EUR', 'OAU'])) {
+            throw new PerfectMoneyException('PerfectMoney ' . $unit . ' is not an accepted payment currency.');
+        }
+
+        $this->unit = (string)$unit;
     }
 
     /**
