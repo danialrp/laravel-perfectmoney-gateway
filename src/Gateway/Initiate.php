@@ -111,7 +111,7 @@ final class Initiate
         $this->additionalInfo = array_key_exists('private_note', $params) ? $params['private_note'] : '';
 
         if(!empty($this->additionalInfo)) {
-            $this->setBaggageFields('ADDITIONAL_INFO_1');
+            $this->setBaggageFields('additional_info_1');
         }
 
         return $this;
@@ -123,11 +123,11 @@ final class Initiate
     public function validateParams(): Initiate
     {
         $requiredParams = [
-            'PM_ACCOUNT' => static::$account,
-            'PM_PASSWORD' => static::$password,
-            'PM_ALTERNATE_PASSPHRASE' => static::$alternatePassphrase,
-            'PM_WALLET' => static::$wallet,
-            'PM_CALLBACK_URL' => static::$callbackUrl,
+            'pm_account' => static::$account,
+            'pm_password' => static::$password,
+            'pm_alternate_passphrase' => static::$alternatePassphrase,
+            'pm_wallet' => static::$wallet,
+            'pm_callback_url' => static::$callbackUrl,
             'payment_id' => $this->paymentId,
             'amount' => $this->amount,
             'currency' => $this->unit
@@ -155,19 +155,19 @@ final class Initiate
     public function createPaymentQuery(): array
     {
         $paymentQuery = [
-            'PAYEE_ACCOUNT' => static::$account,
-            'PAYEE_NAME' => static::$payeeName,
-            'STATUS_URL' => null != static::$statusUrl ? 'mailto:' . static::$statusUrl : '',
-            'PAYMENT_URL' => url('/') . static::$callbackUrl,
-            'PAYMENT_URL_METHOD' => static::$callbackUrlMethod,
-            'NOPAYMENT_URL' => url('/') . static::$callbackUrl,
-            'NOPAYMENT_URL_METHOD' => static::$callbackUrlMethod,
-            'PAYMENT_ID' => $this->paymentId,
-            'PAYMENT_AMOUNT' => $this->amount,
-            'PAYMENT_UNITS' => $this->unit,
-            'SUGGESTED_MEMO' => $this->memo,
-            'ADDITIONAL_INFO_1' => $this->additionalInfo,
-            'BAGGAGE_FIELDS' => $this->baggageFields,
+            'payee_account' => static::$account,
+            'payee_name' => static::$payeeName,
+            'status_url' => null != static::$statusUrl ? 'mailto:' . static::$statusUrl : '',
+            'payment_url' => url('/') . static::$callbackUrl,
+            'payment_url_method' => static::$callbackUrlMethod,
+            'no_payment_url' => url('/') . static::$callbackUrl,
+            'no_payment_url_method' => static::$callbackUrlMethod,
+            'payment_id' => $this->paymentId,
+            'payment_amount' => $this->amount,
+            'payment_unit' => $this->unit,
+            'suggested_memo' => $this->memo,
+            'additional_info_1' => $this->additionalInfo,
+            'baggage_fields' => $this->baggageFields,
         ];
 
         return array_filter($paymentQuery);

@@ -13,6 +13,6 @@ class PerfectMoneyGateway
      */
     public function initiatePaymentForm(array $paymentParams): Payment
     {
-        return Payment::createPaymentForm()->setPaymentFields($paymentParams);
+        return Payment::createPaymentForm($paymentParams);
     }
 }

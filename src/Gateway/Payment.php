@@ -27,11 +27,35 @@ class Payment
     private $paymentFields;
 
     /**
+     * Payment constructor.
+     * @param array $paymentDetails
+     * @throws PerfectMoneyException
+     */
+    public function __construct(array $paymentDetails)
+    {
+        $this->setPaymentFields($paymentDetails);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     * @throws PerfectMoneyException
+     */
+    public function __get($name)
+    {
+        if (!array_key_exists($name, $this->paymentFields)) {
+            throw new PerfectMoneyException($name . ' is not defined');
+        }
+
+        return $this->paymentFields[$name];
+    }
+
+    /**
      * @param array $paymentFields
      * @return Payment
      * @throws PerfectMoneyException
      */
-    public function setPaymentFields(array $paymentFields): Payment
+    private function setPaymentFields(array $paymentFields): Payment
     {
         $this->paymentFields = Initiate::payload($paymentFields)
             ->validateParams()
@@ -40,8 +64,13 @@ class Payment
         return $this;
     }
 
-    public static function createPaymentForm(): Payment
+    /**
+     * @param array $paymentDetails
+     * @return Payment
+     * @throws PerfectMoneyException
+     */
+    public static function createPaymentForm(array $paymentDetails): Payment
     {
-        return new static();
+        return new static($paymentDetails);
     }
 }
