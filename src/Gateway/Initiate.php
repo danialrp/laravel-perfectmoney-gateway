@@ -9,7 +9,7 @@ final class Initiate
     /**
      * @var string
      */
-    private static $account;
+    private static $memberId;
 
     /**
      * @var string
@@ -89,7 +89,7 @@ final class Initiate
 
     private function setDefaultParams(): void
     {
-        static::$account = config('pmgateway.pm_account') ?? null;
+        static::$memberId = config('pmgateway.pm_member_id') ?? null;
         static::$password = config('pmgateway.pm_password') ?? null;
         static::$alternatePassphrase = config('pmgateway.pm_alternate_passphrase') ?? null;
         static::$wallet = config('pmgateway.pm_wallet') ?? null;
@@ -123,7 +123,7 @@ final class Initiate
     public function validateParams(): Initiate
     {
         $requiredParams = [
-            'pm_account' => static::$account,
+            'pm_member_id' => static::$memberId,
             'pm_password' => static::$password,
             'pm_alternate_passphrase' => static::$alternatePassphrase,
             'pm_wallet' => static::$wallet,
@@ -155,7 +155,7 @@ final class Initiate
     public function createPaymentQuery(): array
     {
         $paymentQuery = [
-            'payee_account' => static::$account,
+            'payee_account' => static::$wallet,
             'payee_name' => static::$payeeName,
             'status_url' => null != static::$statusUrl ? 'mailto:' . static::$statusUrl : '',
             'payment_url' => url('/') . static::$callbackUrl,

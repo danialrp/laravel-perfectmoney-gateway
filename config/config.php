@@ -6,7 +6,7 @@
  */
 
 return [
-    'pm_account' => env('PM_ACCOUNT', ''),
+    'pm_member_id' => env('PM_MEMBER_ID', ''),
     'pm_password' => env('PM_PASSWORD', ''),
     'pm_alternate_passphrase' => env('PM_ALTERNATE_PASSPHRASE', ''),
     'pm_wallet' => env('PM_WALLET', ''),
