@@ -12,9 +12,9 @@ class PerfectMoneyGateway
     protected $paymentDetails;
 
 
-    public function __set($name, $value)
+    public function __set($attribute, $value)
     {
-        $this->paymentDetails[$name] = $value;
+        $this->paymentDetails[$attribute] = $value;
     }
 
 
