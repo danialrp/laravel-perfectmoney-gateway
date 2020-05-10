@@ -206,6 +206,7 @@ final class Initiate
     /**
      * @param array $paymentParams
      * @return Initiate
+     * @throws PerfectMoneyException
      */
     public static function payload(array $paymentParams): Initiate
     {

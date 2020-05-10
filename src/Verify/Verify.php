@@ -3,6 +3,8 @@
 namespace DanialPanah\PerfectMoneyGateway\Verify;
 
 
+use DanialPanah\PerfectMoneyGateway\Exceptions\PerfectMoneyVerifyException;
+
 class Verify
 {
     /*
@@ -23,13 +25,36 @@ class Verify
         $this->transaction[$name] = $value;
     }
 
-    private function setTransactionItems()
+    /**
+     * @param $name
+     * @return mixed
+     * @throws PerfectMoneyVerifyException
+     */
+    public function __get($name)
     {
+        if (!array_key_exists($name, $this->transaction)) {
+            throw new PerfectMoneyVerifyException('PerfectMoney ' . $name . ' is not defined.');
+        }
+        return $this->transaction[$name];
+    }
+
+    /**
+     * @throws PerfectMoneyVerifyException
+     */
+    private function validateTransactionItems()
+    {
+        foreach ($this->transactionItems() as $item) {
+            if (!array_key_exists($item, $this->transaction)) {
+                throw new PerfectMoneyVerifyException('PerfectMoney ' . $item . 'is not set for verify transaction.');
+            }
+        }
+
+        return $this;
     }
 
     private function transactionItems(): array
     {
-        return ['id', 'amount', 'batch', 'account', 'time'];
+        return ['transaction_id', 'transaction_amount', 'transaction_batch_number', 'payer_account', 'timestamp'];
     }
 
     public static function verifyTransaction(array $transaction = []): Verify

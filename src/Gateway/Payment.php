@@ -44,7 +44,7 @@ class Payment
     public function __get($name)
     {
         if (!array_key_exists($name, $this->paymentFields)) {
-            throw new PerfectMoneyException($name . ' is not defined');
+            throw new PerfectMoneyException('PerfectMoney ' . $name . ' is not defined.');
         }
         return $this->paymentFields[$name];
     }
