@@ -41,7 +41,7 @@ class Verify
     /**
      * @throws PerfectMoneyVerifyException
      */
-    private function validateTransactionItems()
+    private function validateTransactionItems(): Verify
     {
         foreach ($this->transactionItems() as $item) {
             if (!array_key_exists($item, $this->transaction)) {
